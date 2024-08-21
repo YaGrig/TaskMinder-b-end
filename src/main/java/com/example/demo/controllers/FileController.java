@@ -59,11 +59,11 @@ public class FileController {
         if (fileType.equals("avatar")) {
             path = "/users/" + userId + "/avatar.jpg"; // Исправленный путь
         } else {
-            path = "/tasks/" + fileType + "/" + file.getOriginalFilename(); // Исправленный путь
+            path = "/tasks/" + fileType + "/" + file.getOriginalFilename();
         }
         InputStream fileStream = file.getInputStream();
-        dbxClient.files().uploadBuilder(path) // Используйте исправленный путь здесь
-                .withMode(WriteMode.OVERWRITE) // Добавлено для перезаписи существующего файла
+        dbxClient.files().uploadBuilder(path)
+                .withMode(WriteMode.OVERWRITE)
                 .uploadAndFinish(fileStream);
         fileStream.close();
 
@@ -72,12 +72,10 @@ public class FileController {
             Optional<User> existingUser = userService.getUserById(userIdf);
             if (existingUser.isPresent()) {
                 User user = existingUser.get();
-                user.setAvatar(path); // Предполагается, что у User есть поле avatarPath
+                user.setAvatar(path);
                 userService.updateUser(userId, user);
             }
         }
-        // Сохранение файла в указанной директории
-        // Здесь должен быть код для сохранения файла в файловой системе
         return ResponseEntity.ok("Файл успешно загружен.");
     }
 
@@ -113,7 +111,7 @@ public class FileController {
 
     @GetMapping("/download/task-images/{taskId}")
     public ResponseEntity<List<String>> downloadTaskImages(@PathVariable UUID taskId, HttpServletResponse response) {
-        String taskFolderPath = "/" + taskId.toString(); // Путь к папке с изображениями задачи
+        String taskFolderPath = "/" + taskId.toString();
         try {
             List<String> fileNames = dropboxService.listFiles(taskFolderPath);
             if (fileNames.isEmpty()) {
@@ -122,7 +120,7 @@ public class FileController {
             List<String> downloadLinks = new ArrayList<>();
             for (String filename : fileNames) {
                 String fileDownloadPath = taskFolderPath + "/" + filename;
-                downloadLinks.add(fileDownloadPath); // Ссылки для скачивания файлов
+                downloadLinks.add(fileDownloadPath);
             }
             return new ResponseEntity<>(downloadLinks, HttpStatus.OK);
         } catch (DbxException e) {
