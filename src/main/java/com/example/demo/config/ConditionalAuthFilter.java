@@ -26,7 +26,7 @@ public class ConditionalAuthFilter extends OncePerRequestFilter {
         }
     }
     private boolean isWhiteListed(String uri) {
-        return uri.startsWith("/api/v1/auth/") || uri.startsWith("/token/refresh");
+        return uri.startsWith("/api/v1/auth/") || uri.startsWith("/token/refresh") ||  uri.startsWith("/api/files");
     }
 
 }
