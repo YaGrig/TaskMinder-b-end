@@ -35,7 +35,6 @@ public class TaskService {
 
     public Task createTask(Task task) {
         Integer maxOrd = this.getHighestOrdValue();
-        // Corrected ternary operator syntax
         Integer ord = (maxOrd != null) ? maxOrd + 1 : 0;
         task.setOrd(ord);
         return repository.save(task);
@@ -64,13 +63,6 @@ public class TaskService {
             if (taskDetails.getDueDate() != null) {
                 task.setDueDate(taskDetails.getDueDate());
             }
-//            if (taskDetails.getProject() != null) {
-//                Optional<Project> project = projectService.getProjectById(input.getProject());
-//                task.setProject(project.get());
-//            }
-//                if (input.getAssignedTo() != null) {
-//                    task.setAssignedTo(input.getAssignedTo());
-//                }
             return repository.save(task);
         }
         return null;
@@ -91,9 +83,6 @@ public class TaskService {
         return repository.findTaskByIdAndUserId(id, userId);
     }
 
-//    public List<Task> getTasksByUserId(UUID userId) {
-//        return repository.findAllByUser(userId);
-//    }
     public Integer getHighestOrdValue() {
         return repository.findMaxOrd();
     }
@@ -113,7 +102,6 @@ public class TaskService {
         return repository.findById(id);
     }
 
-//    Specification<Task> spec, Pageable pageable
 
     public List<TaskStatisticsDto> getTaskStatistics(UUID userId) {
         List<TaskStatisticsDto> list = repository.findTaskStatistics(userId);

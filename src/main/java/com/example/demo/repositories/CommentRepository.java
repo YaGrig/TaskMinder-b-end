@@ -25,5 +25,4 @@
 
         @Query("SELECT c FROM Comment c WHERE c.task.id = :taskId")
         List<Comment>  getByTaskId(@Param("taskId") UUID id);
-        // Other custom queries based on your requirements
     }

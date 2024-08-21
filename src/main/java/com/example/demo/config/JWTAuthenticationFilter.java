@@ -27,13 +27,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("authorization");
         String path = request.getRequestURI();
         if (path.equals("/token/refresh")) {
-            // Обрабатываем запрос на обновление токена без проверки заголовка Authorization
             filterChain.doFilter(request, response);
             return;
         }
         Enumeration<String> headerNames = request.getHeaderNames();
 
-        // Перебираем все имена заголовков и печатаем их значения
         while (headerNames.hasMoreElements()) {
             String headerName = headerNames.nextElement();
             String headerValue = request.getHeader(headerName);

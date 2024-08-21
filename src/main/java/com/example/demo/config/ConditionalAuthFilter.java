@@ -18,13 +18,17 @@ public class ConditionalAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        // Check if the request is to the /api/v1/auth/** endpoints;
-        if (request.getRequestURI().startsWith("/api/v1/auth/") || request.getRequestURI().startsWith("/token/refresh")) {
-            // If so, proceed without applying the JWTAuthenticationFilter
+        String uri = request.getRequestURI();
+        if ("/graphql/schema".equals(uri)) {
+            filterChain.doFilter(request, response);
+        } else if (isWhiteListed(uri)) {
             filterChain.doFilter(request, response);
         } else {
-            // Otherwise, delegate to the JWTAuthenticationFilter
             jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
         }
     }
+    private boolean isWhiteListed(String uri) {
+        return uri.startsWith("/api/v1/auth/") || uri.startsWith("/token/refresh");
+    }
+
 }

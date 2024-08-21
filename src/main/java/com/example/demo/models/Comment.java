@@ -28,7 +28,6 @@ import java.util.UUID;
 public class Comment {
     
     @Id
-//    @GeneratedValue
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
@@ -36,14 +35,12 @@ public class Comment {
     private String  content;
     private LocalDateTime createdAt;
 
-//    @JsonBackReference
     @ManyToOne
     @JoinColumn(
             name = "user_id"
     )
     private User user;
 
-//    @JsonBackReference
     @ManyToOne
     @JoinColumn(
             name = "task_id"

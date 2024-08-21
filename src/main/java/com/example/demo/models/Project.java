@@ -27,7 +27,6 @@ import java.util.UUID;
 )
 public class Project {
     @Id
-//    @GeneratedValue
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
@@ -35,12 +34,10 @@ public class Project {
    private String title;
    private String description;
 
-//    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "userId")
    private User user;
 
-//    @JsonManagedReference
     @OneToMany(mappedBy = "project")
     private List<Task> tasks;
 

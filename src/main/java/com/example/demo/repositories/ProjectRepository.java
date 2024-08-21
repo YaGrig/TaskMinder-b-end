@@ -31,5 +31,5 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
     List<ProjectTaskStatisticsDTO> findProjectTaskStatistics(@Param("userId") UUID userId);
 
     List<Project> findByMembersContains(User user);
-    // Other custom queries based on your requirements
+
 }

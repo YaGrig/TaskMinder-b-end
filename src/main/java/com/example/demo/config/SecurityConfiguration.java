@@ -40,7 +40,6 @@ public class SecurityConfiguration {
             "/swagger-ui.html"};
     private final JWTAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-//    private final LogoutHandler logoutHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -54,14 +53,11 @@ public class SecurityConfiguration {
                         .sessionCreationPolicy(STATELESS)
                 )
                 .authenticationProvider(authenticationProvider)
-                // Удалите следующую строку, чтобы исключить WHITE_LIST_URL из фильтрации JWT
-                //.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/api/v1/auth/logout")
                         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 );
 
-        // Добавьте свой фильтр с условием, чтобы он не применялся к WHITE_LIST_URL
         http.addFilterBefore(new ConditionalAuthFilter(jwtAuthFilter), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

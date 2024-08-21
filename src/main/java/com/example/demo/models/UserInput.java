@@ -12,5 +12,4 @@ public class UserInput {
     private String lastname;
     private String password;
 
-    // Constructors, getters, and setters are omitted for brevity
 }

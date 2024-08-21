@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256); // Secure key generation
+    private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -51,12 +51,11 @@ public class JwtService {
     public String generateRefreshToken(UUID userId) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
-        // Устанавливаем более длительный срок жизни для refresh token
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userId.toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + + 1000L * 60 * 60 * 24 * 30)) // Например, 30 дней
+                .setExpiration(new Date(System.currentTimeMillis() + + 1000L * 60 * 60 * 24 * 30))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -75,11 +74,9 @@ public class JwtService {
                     .parseClaimsJws(token)
                     .getBody();
             String userIdString = claims.get("userId", String.class);
-            // Log the userIdString value
-            // Convert the String to UUID
+
             return UUID.fromString(userIdString);
         } catch (IllegalArgumentException e) {
-            // Handle the case where the string is not a valid UUID
             System.err.println("Error: userIdString is not a valid UUID.");
             return null;
         }
@@ -90,15 +87,15 @@ public class JwtService {
         if (token != null) {
             return extractUserIdFromToken(token);
         }
-        return null; // В случае, если токен не найден или невалиден
+        return null;
     }
 
     public static String extractToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7); // Remove "Bearer " prefix
+            return bearerToken.substring(7);
         }
-        return null; // Token not found or doesn't start with "Bearer "
+        return null;
     }
 
     public String generateToken(
@@ -109,11 +106,11 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 3600000 * 10)) // Adjusted to 10 hours
+                .setExpiration(new Date(System.currentTimeMillis() + 3600000 * 10))
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
-//+ 1000 * 60 * 60 * 10
+
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);

@@ -14,8 +14,6 @@ public class UserSpecifications {
             if (emailFilter == null || emailFilter.isEmpty()) {
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
             }
-
-            // Create a predicate for title filtering
             return criteriaBuilder.like(root.get("email"), "%" + emailFilter + "%");
         };
     };

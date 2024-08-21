@@ -37,27 +37,22 @@ public class DropboxService {
         FullAccount account = this.client.users().getCurrentAccount();
     }
 
-    // Method to upload a file to Dropbox
     public FileMetadata uploadFile(MultipartFile multipartFile) throws DbxException, IOException {
-        // Convert MultipartFile to java.io.File
         File file = new File(multipartFile.getOriginalFilename());
         try (OutputStream os = new FileOutputStream(file)) {
             os.write(multipartFile.getBytes());
         }
-        // Upload to Dropbox
         try (InputStream in = new FileInputStream(file)) {
             FileMetadata metadata = this.client.files().uploadBuilder("/" + file.getPath()).uploadAndFinish(in);
 
             return metadata;
         } finally {
-            // Delete the temporary file
             if (file.exists()) {
                 file.delete();
             }
         }
     }
 
-    // Method to download a file from Dropbox
     public void downloadFile(String dropboxPath, OutputStream outputStream) throws DbxException, IOException {
         client.files().downloadBuilder(dropboxPath).download(outputStream);
     }
@@ -80,6 +75,4 @@ public class DropboxService {
         }
         return fileNames;
     }
-
-    // Add more methods for file management as needed
 }
