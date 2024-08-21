@@ -14,22 +14,22 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/graphql")
-                        .allowedOriginPatterns("*")
+                        .allowedOriginPatterns("https://task-minder-jbcjno9or-yagrigs-projects.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
                 registry.addMapping("/api/files/**")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("https://task-minder-jbcjno9or-yagrigs-projects.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
                 registry.addMapping("/token/refresh")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("https://task-minder-jbcjno9or-yagrigs-projects.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("https://task-minder-jbcjno9or-yagrigs-projects.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
