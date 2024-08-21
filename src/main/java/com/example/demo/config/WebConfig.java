@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "https://taskminder-b-end-production.up.railway.app","https://task-minder-216mfmo8o-yagrigs-projects.vercel.app","https://taskminder-b-end-production.up.railway.app/v1/auth/login", "https://taskminder-b-end-production.up.railway.app/v1/auth/register","https://taskminder-b-end-production.up.railway.app/landing", "https://taskminder-b-end-production.up.railway.app/dashboard","https://taskminder-b-end-production.up.railway.app/tasks", "https://taskminder-b-end-production.up.railway.app/boards", "https://taskminder-b-end-production.up.railway.app/profile")
+                .allowedOrigins("http://localhost:3000", "https://taskminder-b-end-production.up.railway.app","https://task-minder-216mfmo8o-yagrigs-projects.vercel.app","https://taskminder-b-end-production.up.railway.app/api/files/download/avatar","https://taskminder-b-end-production.up.railway.app/v1/auth/login", "https://taskminder-b-end-production.up.railway.app/v1/auth/register","https://taskminder-b-end-production.up.railway.app/landing", "https://taskminder-b-end-production.up.railway.app/dashboard","https://taskminder-b-end-production.up.railway.app/tasks", "https://taskminder-b-end-production.up.railway.app/boards", "https://taskminder-b-end-production.up.railway.app/profile")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);

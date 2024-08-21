@@ -31,10 +31,16 @@ public class DropboxService {
     private String ACCESS_TOKEN;
 
     @PostConstruct
-    private void initializeDropboxClient() throws DbxException {
-        DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
-        this.client = new DbxClientV2(config, ACCESS_TOKEN);
-        FullAccount account = this.client.users().getCurrentAccount();
+    private void initializeDropboxClient() {
+        try {
+            String envToken = System.getenv("dropbox.app.ACCESS_TOKEN");
+            DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/TaskMinder-fileStorage").build();
+            this.client = new DbxClientV2(config, ACCESS_TOKEN);
+            FullAccount account = this.client.users().getCurrentAccount();
+        } catch (DbxException e) {
+            System.err.println("Error initializing Dropbox client: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public FileMetadata uploadFile(MultipartFile multipartFile) throws DbxException, IOException {

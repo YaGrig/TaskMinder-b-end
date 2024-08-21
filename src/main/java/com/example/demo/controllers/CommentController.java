@@ -34,7 +34,7 @@ public class CommentController {
     private final TaskService taskService;
 
     @MutationMapping(value = "createComment")
-    public ResponseEntity<Comment> createComment(@Argument UUID taskId, @Argument Comment comment) {
+    public Comment createComment(@Argument UUID taskId, @Argument Comment comment) {
         UUID userId = jwtService.getUserIdFromRequest(request);
         User user = userService.getUserById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -44,7 +44,7 @@ public class CommentController {
         comment.setUser(user);
         comment.setTask(task);
         Comment savedComment = commentService.createComment(comment);
-        return ResponseEntity.ok(savedComment);
+        return savedComment;
     }
 
     @MutationMapping(value = "updateComment")
