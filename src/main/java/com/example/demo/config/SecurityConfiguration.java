@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                         .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
                 );
 
-        http.addFilterBefore(new ConditionalAuthFilter(jwtAuthFilter), UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(new ConditionalAuthFilter(jwtAuthFilter), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
