@@ -24,7 +24,8 @@ public class ConditionalAuthFilter extends OncePerRequestFilter {
         } else if (isWhiteListed(uri)) {
             filterChain.doFilter(request, response);
         } else {
-            jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+//            jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
+            filterChain.doFilter(request, response);
         }
     }
     private boolean isWhiteListed(String uri) {
