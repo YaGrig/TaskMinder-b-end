@@ -11,7 +11,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "https://taskminder-b-end-production.up.railway.app")
+                .allowedOrigins("http://localhost:3000", "https://taskminder-b-end-production.up.railway.app", "https://taskminder-b-end-production.up.railway.app/landing", "https://taskminder-b-end-production.up.railway.app/dashboard","https://taskminder-b-end-production.up.railway.app/tasks", "https://taskminder-b-end-production.up.railway.app/boards", "https://taskminder-b-end-production.up.railway.app/profile")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
