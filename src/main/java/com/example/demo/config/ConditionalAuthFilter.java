@@ -19,7 +19,7 @@ public class ConditionalAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        if ("/graphql/schema".equals(uri)) {
+        if ("/graphql".equals(uri)) {
             filterChain.doFilter(request, response);
         } else if (isWhiteListed(uri)) {
             filterChain.doFilter(request, response);
